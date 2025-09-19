@@ -24,7 +24,7 @@ import { useState } from "react";
 import SignOutButton from "../components/auth/SignOutButton";
 import ItemForm from "../components/items/ItemForm";
 import ItemListItem from "../components/items/ItemListItem";
-import { useAuthenticated } from "../contexts/AuthContext";
+import { useAuthenticated } from "../contexts/auth";
 import {
   useAddItem,
   useDeleteItem,

@@ -1,6 +1,6 @@
 import { ItemData, User } from "@agt-tauglich/model";
 import { useCallback, useEffect, useState } from "react";
-import { useAuthenticated } from "../contexts/AuthContext";
+import { useAuthenticated } from "../contexts/auth";
 import {
   addItem,
   deleteItem,
@@ -19,7 +19,7 @@ export function useUserData() {
     setError(null);
 
     return subscribeToUserData(
-      user,
+      user.uid,
       (data: User | null) => {
         setUserData(data);
         setLoading(false);

@@ -11,7 +11,7 @@ import { useState } from "react";
 import GoogleSignInButton from "../components/auth/GoogleSignInButton";
 import SignInForm from "../components/auth/SignInForm";
 import SignUpForm from "../components/auth/SignUpForm";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/auth";
 
 export const Route = createFileRoute("/")({
   component: Index,

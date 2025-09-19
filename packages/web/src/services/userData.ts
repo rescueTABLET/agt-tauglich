@@ -52,11 +52,11 @@ export async function ensureUserData(user: FirebaseUser): Promise<User> {
 }
 
 export function subscribeToUserData(
-  user: FirebaseUser,
+  userId: string,
   callback: (userData: User | null) => void,
   onError: (error: FirestoreError) => void
 ): Unsubscribe {
-  const userDoc = doc(db, "users", user.uid);
+  const userDoc = doc(db, "users", userId);
 
   return onSnapshot(
     userDoc,
@@ -64,7 +64,7 @@ export function subscribeToUserData(
       if (docSnap.exists()) {
         const firestoreData = docSnap.data() as FirestoreUserData;
         const userData = fromFirestoreUserData(firestoreData);
-        callback({ id: user.uid, ...userData });
+        callback({ id: userId, ...userData });
       } else {
         callback(null);
       }

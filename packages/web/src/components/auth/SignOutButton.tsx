@@ -1,6 +1,6 @@
 import { Logout } from "@mui/icons-material";
 import { Button } from "@mui/material";
-import { useAuthenticated } from "../../contexts/AuthContext";
+import { useAuthenticated } from "../../contexts/auth";
 
 export default function SignOutButton() {
   const { signOut } = useAuthenticated();
