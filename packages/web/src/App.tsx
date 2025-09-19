@@ -1,15 +1,13 @@
-import { lazy, Suspense } from "react";
-import GlobalLoading from "./components/GlobalLoading";
+import Pages from "./Pages";
+import { AuthProvider } from "./contexts/AuthContext";
 import ThemeProvider from "./theme";
-
-const Pages = lazy(() => import("./pages"));
 
 export default function App() {
   return (
     <ThemeProvider>
-      <Suspense fallback={<GlobalLoading />}>
+      <AuthProvider>
         <Pages />
-      </Suspense>
+      </AuthProvider>
     </ThemeProvider>
   );
 }

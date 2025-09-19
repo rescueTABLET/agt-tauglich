@@ -1,0 +1,21 @@
+import { Logout } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import { useAuthenticated } from "../../contexts/AuthContext";
+
+export default function SignOutButton() {
+  const { signOut } = useAuthenticated();
+
+  const handleSignOut = async () => {
+    try {
+      await signOut();
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
+  return (
+    <Button color="inherit" startIcon={<Logout />} onClick={handleSignOut}>
+      Abmelden
+    </Button>
+  );
+}
