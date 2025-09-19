@@ -128,7 +128,6 @@ function Dashboard() {
             {error}
           </Alert>
         )}
-
         <Card>
           <CardHeader
             title="Meine Tauglichkeiten"
@@ -167,7 +166,7 @@ function Dashboard() {
             </CardContent>
           ) : (
             <>
-              <CardContent>
+              <CardContent sx={{ pb: 0 }}>
                 {expiredCount > 0 && (
                   <Typography color="error" variant="body2">
                     ⚠️ {expiredCount} abgelaufen
@@ -181,8 +180,8 @@ function Dashboard() {
                 )}
               </CardContent>
               <List>
-                {items
-                  .toSorted((a, b) => b.validUntil - a.validUntil)
+                {[...items]
+                  .sort((a, b) => a.validUntil.localeCompare(b.validUntil))
                   .map((item, index) => (
                     <ItemListItem
                       key={item.id}
