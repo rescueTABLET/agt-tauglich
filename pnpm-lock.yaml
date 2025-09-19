@@ -11,6 +11,9 @@ importers:
 
   .:
     devDependencies:
+      firebase-tools:
+        specifier: ^14.17.0
+        version: 14.17.0(@types/node@22.18.6)(encoding@0.1.13)
       prettier:
         specifier: ^3.6.2
         version: 3.6.2

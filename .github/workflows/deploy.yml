@@ -43,8 +43,8 @@ jobs:
       - name: Configure environmemt
         run: echo 'APP_URL=${{ vars.APP_URL }}' >> packages/functions/.env
 
-#      - name: Select project
-#        run: npx firebase use ${{ vars.FIREBASE_PROJECT }}
+      - name: Select project
+        run: pnpm firebase use ${{ vars.FIREBASE_PROJECT }}
 
-#      - name: Deploy
-#        run: npx firebase deploy
+      - name: Deploy
+        run: pnpm firebase deploy
