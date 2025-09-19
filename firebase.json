@@ -11,7 +11,7 @@
   "functions": [
     {
       "source": "packages/functions",
-      "runtime": "nodejs22",
+      "runtime": "nodejs24",
       "codebase": "default",
       "ignore": ["src", "node_modules"]
     }

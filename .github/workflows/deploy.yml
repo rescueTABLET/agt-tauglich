@@ -14,39 +14,37 @@ jobs:
 
     steps:
       - name: checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+
+      - name: Setup pnpm
+        run: |
+          npm install --global corepack@0.34.0
+          corepack enable
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version-file: package.json
-
-      - name: Cache dependencies
-        id: npm-cache
-        uses: actions/cache@v4
-        with:
-          path: node_modules
-          key: npm-${{ hashFiles('package-lock.json') }}
-
+          cache: pnpm
+      
       - name: Install
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm ci
-
-      - name: Lint
-        run: npm run lint
+        run: pnpm install --frozen-lockfile
 
       - name: Build
-        run: npm run build
+        run: pnpm run build
+
+      - name: Lint
+        run: pnpm run lint
 
       - uses: google-github-actions/auth@v2
         with:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
-      - name: Select project
-        run: npx firebase use ${{ vars.FIREBASE_PROJECT }}
-
       - name: Configure environmemt
         run: echo 'APP_URL=${{ vars.APP_URL }}' >> packages/functions/.env
 
-      - name: Deploy
-        run: npx firebase deploy
+#      - name: Select project
+#        run: npx firebase use ${{ vars.FIREBASE_PROJECT }}
+
+#      - name: Deploy
+#        run: npx firebase deploy

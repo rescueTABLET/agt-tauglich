@@ -7,15 +7,6 @@ const iconSizes = [48, 72, 96, 144, 192, 512, 1024];
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "/",
-  build: {
-    rollupOptions: {
-      input: ["index.html", "firebase-messaging-sw.js"],
-      output: {
-        entryFileNames: "[name].js",
-      },
-    },
-  },
   plugins: [
     react(),
     VitePWA({

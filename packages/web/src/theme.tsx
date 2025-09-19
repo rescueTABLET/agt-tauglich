@@ -1,4 +1,4 @@
-import "@fontsource/roboto";
+import "@fontsource/roboto/index.css";
 import {
   createTheme,
   CssBaseline,

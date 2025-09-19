@@ -5,19 +5,20 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "shx rm -rf packages/*/{lib,dist} packages/*/*.tsbuildinfo && npm run --workspaces --if-present clean",
-    "build": "npm run compile && npm run --workspaces --if-present build",
-    "compile": "npm run clean && tsc -b tsconfig.build.json",
-    "lint": "npm run --workspaces --if-present lint",
-    "test": "npm run --workspaces --if-present test",
-    "start": "npm run --workspaces --if-present start"
+    "clean": "shx rm -rf packages/*/{lib,dist} packages/*/*.tsbuildinfo && pnpm run --recursive --if-present clean",
+    "build": "pnpm run compile && pnpm run --recursive --if-present build",
+    "compile": "pnpm run clean && tsc -b tsconfig.build.json",
+    "lint": "pnpm run --recursive --if-present lint",
+    "test": "pnpm run --recursive --if-present test",
+    "start": "pnpm run --recursive --if-present start"
   },
   "devDependencies": {
-    "prettier": "^3.3.3",
-    "shx": "^0.3.4",
-    "typescript": "^5.6.2"
+    "prettier": "^3.6.2",
+    "shx": "^0.4.0",
+    "typescript": "^5.9.2"
   },
   "volta": {
-    "node": "21.7.3"
-  }
+    "node": "22.19.0"
+  },
+  "packageManager": "pnpm@10.17.0+sha512.fce8a3dd29a4ed2ec566fb53efbb04d8c44a0f05bc6f24a73046910fb9c3ce7afa35a0980500668fa3573345bd644644fa98338fa168235c80f4aa17aa17fbef"
 }
