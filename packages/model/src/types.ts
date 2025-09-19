@@ -12,7 +12,8 @@ export type Item = Identifiable & ItemData;
 
 export type ItemData = {
   label: string;
-  expiration: number;
+  /* The ISO 8601 date of the last day this item is valid. */
+  validUntil: string;
   reminders?: ReadonlyArray<Reminder>;
 };
 

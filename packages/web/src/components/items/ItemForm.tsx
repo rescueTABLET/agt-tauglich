@@ -1,0 +1,132 @@
+import { useState, useEffect } from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  TextField,
+  Button,
+  Alert,
+  Stack,
+} from "@mui/material";
+import { ItemData, Item } from "@agt-tauglich/model";
+
+interface ItemFormProps {
+  open: boolean;
+  onClose: () => void;
+  onSave: (itemData: ItemData) => Promise<void>;
+  item?: Item;
+  title: string;
+}
+
+export default function ItemForm({
+  open,
+  onClose,
+  onSave,
+  item,
+  title,
+}: ItemFormProps) {
+  const [label, setLabel] = useState("");
+  const [validUntil, setValidUntil] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Reset form when dialog opens/closes or item changes
+  useEffect(() => {
+    if (open) {
+      setLabel(item?.label || "");
+      setValidUntil(item?.validUntil || "");
+      setError("");
+    }
+  }, [open, item]);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+
+    if (!label.trim()) {
+      setError("Bezeichnung ist erforderlich");
+      return;
+    }
+
+    if (!validUntil) {
+      setError("Gültig bis ist erforderlich");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      await onSave({
+        label: label.trim(),
+        validUntil,
+      });
+      onClose();
+    } catch (err: any) {
+      setError(err.message || "Fehler beim Speichern");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    if (!loading) {
+      onClose();
+    }
+  };
+
+  return (
+    <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+      <form onSubmit={handleSubmit}>
+        <DialogTitle>{title}</DialogTitle>
+        
+        <DialogContent>
+          {error && (
+            <Alert severity="error" sx={{ mb: 2 }}>
+              {error}
+            </Alert>
+          )}
+
+          <Stack spacing={2} sx={{ mt: 1 }}>
+            <TextField
+              label="Bezeichnung"
+              value={label}
+              onChange={(e) => setLabel(e.target.value)}
+              required
+              fullWidth
+              disabled={loading}
+              placeholder="z.B. Erste Hilfe Kurs, Führerschein, ..."
+            />
+            
+            <TextField
+              label="Gültig bis"
+              type="date"
+              value={validUntil}
+              onChange={(e) => setValidUntil(e.target.value)}
+              required
+              fullWidth
+              disabled={loading}
+              InputLabelProps={{
+                shrink: true,
+              }}
+              helperText="Das letzte Datum, an dem das Element gültig ist"
+            />
+          </Stack>
+        </DialogContent>
+
+        <DialogActions>
+          <Button onClick={handleClose} disabled={loading}>
+            Abbrechen
+          </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            disabled={loading}
+          >
+            {loading ? "Speichert..." : "Speichern"}
+          </Button>
+        </DialogActions>
+      </form>
+    </Dialog>
+  );
+}

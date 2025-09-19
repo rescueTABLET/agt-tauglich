@@ -9,7 +9,6 @@ import {
   red as error,
   deepPurple as primary,
   deepOrange as secondary,
-  green as success,
 } from "@mui/material/colors";
 import { type ReactNode } from "react";
 
@@ -23,7 +22,6 @@ const theme = createTheme({
         primary,
         secondary,
         error,
-        success,
         background: {
           default: "#f5f5f5",
         },
@@ -34,7 +32,6 @@ const theme = createTheme({
         primary: { main: primary[300] },
         secondary: { main: secondary[300] },
         error: { main: error[300] },
-        success: { main: success[300] },
         background: {
           default: "#000000",
         },
