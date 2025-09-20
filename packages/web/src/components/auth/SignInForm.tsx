@@ -27,7 +27,7 @@ export default function SignInForm({ onToggleMode }: SignInFormProps) {
     try {
       await signInWithEmail(email, password);
     } catch (err: any) {
-      setError(err.message || "Anmeldung fehlgeschlagen");
+      setError(err.message || "Ups, die Anmeldung hat nicht geklappt");
     } finally {
       setLoading(false);
     }

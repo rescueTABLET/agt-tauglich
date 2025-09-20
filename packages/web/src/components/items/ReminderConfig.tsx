@@ -174,7 +174,7 @@ export default function ReminderConfig({
 
       {reminders.length === 0 && (
         <Typography variant="body2" color="text.secondary">
-          Keine Erinnerungen konfiguriert. Fügen Sie eine Erinnerung hinzu, um
+          Keine Erinnerungen konfiguriert. Füge eine Erinnerung hinzu, um
           vor Ablauf benachrichtigt zu werden.
         </Typography>
       )}

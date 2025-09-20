@@ -14,7 +14,7 @@ export default function GoogleSignInButton() {
     try {
       await signInWithGoogle();
     } catch (err: any) {
-      setError(err.message || "Anmeldung mit Google fehlgeschlagen");
+      setError(err.message || "Ups, die Google-Anmeldung hat nicht geklappt");
     } finally {
       setLoading(false);
     }

@@ -1,4 +1,10 @@
-import { CheckCircle, Delete, Edit, Warning, Notifications } from "@mui/icons-material";
+import {
+  CheckCircle,
+  Delete,
+  Edit,
+  Notifications,
+  Warning,
+} from "@mui/icons-material";
 import {
   Box,
   Chip,
@@ -7,7 +13,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { type Item, type Advance } from "../../model";
+import { type Advance, type Item } from "../../model";
 
 interface ItemListItemProps {
   item: Item;
@@ -82,7 +88,7 @@ export default function ItemListItem({
     }
 
     if (item.reminders.length === 1) {
-      return `Erinnerung: ${formatAdvance(item.reminders[0].advance)} vorher`;
+      return `${formatAdvance(item.reminders[0].advance)} vorher`;
     }
 
     return `${item.reminders.length} Erinnerungen`;

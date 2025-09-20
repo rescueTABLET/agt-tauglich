@@ -48,12 +48,12 @@ export default function ItemForm({
     setError("");
 
     if (!label.trim()) {
-      setError("Bezeichnung ist erforderlich");
+      setError("Bitte gib eine Bezeichnung ein");
       return;
     }
 
     if (!validUntil) {
-      setError("Gültig bis ist erforderlich");
+      setError("Bitte wähle ein Gültig-bis-Datum");
       return;
     }
 
@@ -67,7 +67,7 @@ export default function ItemForm({
       });
       onClose();
     } catch (err: any) {
-      setError(err.message || "Fehler beim Speichern");
+      setError(err.message || "Ups, da ist was schiefgelaufen");
     } finally {
       setLoading(false);
     }

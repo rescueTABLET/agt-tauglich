@@ -8,7 +8,7 @@ This application allows users to track the expiration dates of various trainings
 
 ## Language
 
-The application language is German. All user interface elements should be displayed in German. We use an informal tone of voice with "du" instead of "Sie".
+The application language is German. All user interface elements should be displayed in German. We use an informal and light-hearted tone of voice with "du" instead of "Sie". Use phrases and idioms you'd use in a conversation with a friend, don't be too serious.
 
 ## Project Structure
 

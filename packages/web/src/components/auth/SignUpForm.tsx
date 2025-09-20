@@ -39,7 +39,7 @@ export default function SignUpForm({ onToggleMode }: SignUpFormProps) {
     try {
       await signUpWithEmail(email, password);
     } catch (err: any) {
-      setError(err.message || "Konto konnte nicht erstellt werden");
+      setError(err.message || "Ups, das Konto konnte nicht erstellt werden");
     } finally {
       setLoading(false);
     }

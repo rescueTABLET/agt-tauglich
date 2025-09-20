@@ -152,7 +152,7 @@ function Dashboard() {
                 Noch keine Tauglichkeiten hinzugefügt
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                Fügen Sie Ihre erste Tauglichkeit hinzu, um den Überblick über
+                Füge deine erste Tauglichkeit hinzu, um den Überblick über
                 Ablaufdaten zu behalten.
               </Typography>
               <Button
@@ -213,7 +213,7 @@ function Dashboard() {
         <DialogTitle>Tauglichkeit löschen</DialogTitle>
         <DialogContent>
           <Typography>
-            Möchten Sie "{itemToDelete?.label}" wirklich löschen? Diese Aktion
+            Möchtest du "{itemToDelete?.label}" wirklich löschen? Diese Aktion
             kann nicht rückgängig gemacht werden.
           </Typography>
         </DialogContent>
