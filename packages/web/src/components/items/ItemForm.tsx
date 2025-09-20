@@ -125,7 +125,7 @@ export default function ItemForm({
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={handleClose} disabled={loading}>
+          <Button color="inherit" onClick={handleClose} disabled={loading}>
             Abbrechen
           </Button>
           <Button type="submit" variant="contained" disabled={loading}>

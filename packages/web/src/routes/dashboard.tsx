@@ -8,11 +8,11 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Container,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
+  Divider,
   LinearProgress,
   List,
   Toolbar,
@@ -21,6 +21,7 @@ import {
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import SignOutButton from "../components/auth/SignOutButton";
+import Footer from "../components/Footer";
 import ItemForm from "../components/items/ItemForm";
 import ItemListItem from "../components/items/ItemListItem";
 import { useAuthenticated } from "../contexts/auth";
@@ -122,13 +123,20 @@ function Dashboard() {
           </Box>
         </Toolbar>
       </AppBar>
-      <Container sx={{ py: 4 }}>
+      <Box
+        sx={{
+          py: { md: 4 },
+          px: { md: 3 },
+          maxWidth: (theme) => theme.breakpoints.values.md,
+          mx: "auto",
+        }}
+      >
         {error && (
           <Alert severity="error" sx={{ mb: 3 }}>
             {error}
           </Alert>
         )}
-        <Card>
+        <Card sx={{ borderRadius: { xs: 0, md: 2 } }}>
           <CardHeader
             title="Meine Tauglichkeiten"
             avatar={
@@ -194,8 +202,10 @@ function Dashboard() {
               </List>
             </>
           )}
+          <Divider />
+          <Footer />
         </Card>
-      </Container>
+      </Box>
 
       <ItemForm
         open={formOpen}
@@ -218,7 +228,11 @@ function Dashboard() {
           </Typography>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleCancelDelete} disabled={actionLoading}>
+          <Button
+            color="inherit"
+            onClick={handleCancelDelete}
+            disabled={actionLoading}
+          >
             Abbrechen
           </Button>
           <Button

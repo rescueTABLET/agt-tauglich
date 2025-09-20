@@ -1,16 +1,10 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  Container,
-  Divider,
-  Typography,
-} from "@mui/material";
+import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
 import { createFileRoute, Navigate } from "@tanstack/react-router";
 import { useState } from "react";
 import GoogleSignInButton from "../components/auth/GoogleSignInButton";
 import SignInForm from "../components/auth/SignInForm";
 import SignUpForm from "../components/auth/SignUpForm";
+import Footer from "../components/Footer";
 import { useAuth } from "../contexts/auth";
 
 export const Route = createFileRoute("/")({
@@ -35,9 +29,16 @@ function LandingPage() {
   };
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center", pt: 4 }}>
-      <Container maxWidth="sm">
-        <Card>
+    <Box sx={{ display: "flex", alignItems: "center" }}>
+      <Box
+        sx={{
+          py: { sm: 4 },
+          px: { sm: 3 },
+          maxWidth: (theme) => theme.breakpoints.values.sm,
+          mx: "auto",
+        }}
+      >
+        <Card sx={{ borderRadius: { xs: 0, sm: 2 } }}>
           <CardContent sx={{ textAlign: "center" }}>
             <Typography variant="h4" component="h1" gutterBottom>
               Willkommen bei AGT Tauglich!
@@ -62,8 +63,10 @@ function LandingPage() {
               )}
             </Box>
           </CardContent>
+          <Divider />
+          <Footer />
         </Card>
-      </Container>
+      </Box>
     </Box>
   );
 }
