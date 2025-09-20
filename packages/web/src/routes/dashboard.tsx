@@ -9,7 +9,6 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  Divider,
   LinearProgress,
   Toolbar,
   Typography,
@@ -95,7 +94,7 @@ function Dashboard() {
 
   return (
     <>
-      <AppBar position="static" elevation={1}>
+      <AppBar>
         <Toolbar>
           <Typography variant="h6" component="div">
             AGT Tauglich
@@ -105,49 +104,59 @@ function Dashboard() {
           </Box>
         </Toolbar>
       </AppBar>
-      <Container sx={{ py: 2 }}>
-        {error && (
-          <Alert severity="error" sx={{ mb: 3 }}>
-            {error}
-          </Alert>
-        )}
-        <Button
-          variant="contained"
-          startIcon={<Add />}
-          onClick={handleAddItem}
-          sx={{ mb: 2 }}
-        >
-          Hinzufügen
-        </Button>
-        {loading ? (
-          <LinearProgress />
-        ) : (
-          <Box
-            sx={{
-              display: "grid",
-              gridTemplateColumns: {
-                xs: "1fr",
-                sm: "1fr 1fr",
-                md: "1fr 1fr 1fr",
-              },
-              gap: 1,
-              mb: 2,
-            }}
-          >
-            {[...items]
-              .sort((a, b) => a.validUntil.localeCompare(b.validUntil))
-              .map((item) => (
-                <ItemListItem
-                  key={item.id}
-                  item={item}
-                  onEdit={() => handleEditItem(item)}
-                  onDelete={() => handleDeleteClick(item)}
-                />
-              ))}
+      <Container
+        sx={{
+          py: 2,
+          minHeight: "100vh",
+        }}
+      >
+        <Toolbar />
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {error && (
+            <Alert severity="error" sx={{ mb: 3 }}>
+              {error}
+            </Alert>
+          )}
+          <Box>
+            <Button
+              variant="contained"
+              color="secondary"
+              startIcon={<Add />}
+              onClick={handleAddItem}
+            >
+              Hinzufügen
+            </Button>
           </Box>
-        )}
-        <Divider />
-        <Footer />
+          {loading ? (
+            <LinearProgress />
+          ) : (
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: {
+                  xs: "1fr",
+                  sm: "1fr 1fr",
+                  md: "1fr 1fr 1fr",
+                },
+                gap: 1,
+              }}
+            >
+              {[...items]
+                .sort((a, b) => a.validUntil.localeCompare(b.validUntil))
+                .map((item) => (
+                  <ItemListItem
+                    key={item.id}
+                    item={item}
+                    onEdit={() => handleEditItem(item)}
+                    onDelete={() => handleDeleteClick(item)}
+                  />
+                ))}
+            </Box>
+          )}
+          <Box sx={{ mt: "auto" }}>
+            <Footer />
+          </Box>
+        </Box>
       </Container>
 
       <ItemForm
@@ -172,6 +181,7 @@ function Dashboard() {
         </DialogContent>
         <DialogActions>
           <Button
+            variant="text"
             color="inherit"
             onClick={handleCancelDelete}
             disabled={actionLoading}

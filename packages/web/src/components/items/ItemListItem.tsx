@@ -34,10 +34,20 @@ export default function ItemListItem({
         <ReminderSummaryChip item={item} />
       </CardContent>
       <CardActions>
-        <Button color="inherit" startIcon={<Edit />} onClick={onEdit}>
+        <Button
+          variant="text"
+          color="inherit"
+          startIcon={<Edit />}
+          onClick={onEdit}
+        >
           Bearbeiten
         </Button>
-        <Button color="inherit" startIcon={<Delete />} onClick={onDelete}>
+        <Button
+          variant="text"
+          color="inherit"
+          startIcon={<Delete />}
+          onClick={onDelete}
+        >
           Löschen
         </Button>
       </CardActions>

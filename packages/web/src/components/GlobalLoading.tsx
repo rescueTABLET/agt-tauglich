@@ -29,13 +29,16 @@ export default function GlobalLoading() {
         <Delay ms={300}>
           <CircularProgress
             size="100%"
-            color="secondary"
             thickness={2}
             sx={{ position: "absolute", inset: 0 }}
           />
         </Delay>
         <ThumbUp
-          sx={{ fontSize: "4rem", color: "primary.main", position: "relative" }}
+          sx={{
+            fontSize: "4rem",
+            color: "secondary.main",
+            position: "relative",
+          }}
         />
       </Box>
     </Box>
