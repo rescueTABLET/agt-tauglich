@@ -1,12 +1,12 @@
-import { useState } from "react";
 import {
-  Box,
-  TextField,
-  Button,
-  Typography,
   Alert,
+  Box,
+  Button,
   Stack,
+  TextField,
+  Typography,
 } from "@mui/material";
+import { useState } from "react";
 import { signInWithEmail } from "../../services/auth";
 
 interface SignInFormProps {
@@ -38,7 +38,7 @@ export default function SignInForm({ onToggleMode }: SignInFormProps) {
       <Typography variant="h5" component="h2" gutterBottom>
         Anmelden
       </Typography>
-      
+
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -65,6 +65,7 @@ export default function SignInForm({ onToggleMode }: SignInFormProps) {
         <Button
           type="submit"
           variant="contained"
+          color="secondary"
           disabled={loading}
           fullWidth
           size="large"
@@ -73,6 +74,7 @@ export default function SignInForm({ onToggleMode }: SignInFormProps) {
         </Button>
         <Button
           variant="text"
+          color="secondary"
           onClick={onToggleMode}
           disabled={loading}
         >

@@ -26,12 +26,12 @@ export default defineConfig({
       },
       manifest: {
         id: "/",
-        name: "Bin ich tauglich?",
-        short_name: "AGT",
+        name: "Tauglich?",
+        short_name: "Tauglich?",
         lang: "de",
         start_url: ".",
         display: "standalone",
-        theme_color: "#673ab7",
+        theme_color: "#a22717",
         background_color: "#f5f5f5",
         icons: [
           ...iconSizes.flatMap((size) => [

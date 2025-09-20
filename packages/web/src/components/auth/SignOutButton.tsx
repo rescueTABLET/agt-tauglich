@@ -14,7 +14,12 @@ export default function SignOutButton() {
   };
 
   return (
-    <Button color="inherit" startIcon={<Logout />} onClick={handleSignOut}>
+    <Button
+      variant="text"
+      color="inherit"
+      startIcon={<Logout />}
+      onClick={handleSignOut}
+    >
       Abmelden
     </Button>
   );

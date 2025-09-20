@@ -28,7 +28,8 @@ export default function GoogleSignInButton() {
         </Alert>
       )}
       <Button
-        variant="outlined"
+        variant="contained"
+        color="secondary"
         onClick={handleGoogleSignIn}
         disabled={loading}
         startIcon={<Google />}

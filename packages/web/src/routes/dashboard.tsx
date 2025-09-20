@@ -97,65 +97,67 @@ function Dashboard() {
       <AppBar>
         <Toolbar>
           <Typography variant="h6" component="div">
-            AGT Tauglich
+            Tauglich?
           </Typography>
           <Box sx={{ ml: "auto" }}>
             <SignOutButton />
           </Box>
         </Toolbar>
       </AppBar>
+      <Toolbar />
       <Container
         sx={{
           py: 2,
-          minHeight: "100vh",
+          "--toolbar-height": { xs: "48px", sm: "64px" },
+          minHeight: "calc(100vh - var(--toolbar-height))",
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
         }}
       >
-        <Toolbar />
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          {error && (
-            <Alert severity="error" sx={{ mb: 3 }}>
-              {error}
-            </Alert>
-          )}
-          <Box>
-            <Button
-              variant="contained"
-              color="secondary"
-              startIcon={<Add />}
-              onClick={handleAddItem}
-            >
-              Hinzufügen
-            </Button>
+        {error && (
+          <Alert severity="error" sx={{ mb: 3 }}>
+            {error}
+          </Alert>
+        )}
+        <Box>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<Add />}
+            onClick={handleAddItem}
+          >
+            Hinzufügen
+          </Button>
+        </Box>
+        {loading ? (
+          <LinearProgress />
+        ) : (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "1fr 1fr",
+                md: "1fr 1fr 1fr",
+              },
+              gap: 1,
+            }}
+          >
+            {[...items]
+              .sort((a, b) => a.validUntil.localeCompare(b.validUntil))
+              .map((item) => (
+                <ItemListItem
+                  key={item.id}
+                  item={item}
+                  onEdit={() => handleEditItem(item)}
+                  onDelete={() => handleDeleteClick(item)}
+                />
+              ))}
           </Box>
-          {loading ? (
-            <LinearProgress />
-          ) : (
-            <Box
-              sx={{
-                display: "grid",
-                gridTemplateColumns: {
-                  xs: "1fr",
-                  sm: "1fr 1fr",
-                  md: "1fr 1fr 1fr",
-                },
-                gap: 1,
-              }}
-            >
-              {[...items]
-                .sort((a, b) => a.validUntil.localeCompare(b.validUntil))
-                .map((item) => (
-                  <ItemListItem
-                    key={item.id}
-                    item={item}
-                    onEdit={() => handleEditItem(item)}
-                    onDelete={() => handleDeleteClick(item)}
-                  />
-                ))}
-            </Box>
-          )}
-          <Box sx={{ mt: "auto" }}>
-            <Footer />
-          </Box>
+        )}
+        <Box sx={{ mt: "auto" }}>
+          <Footer />
         </Box>
       </Container>
 

@@ -41,7 +41,7 @@ function LandingPage() {
         <Card sx={{ borderRadius: { xs: 0, sm: 2 } }}>
           <CardContent sx={{ textAlign: "center" }}>
             <Typography variant="h4" component="h1" gutterBottom>
-              Willkommen bei AGT Tauglich!
+              Willkommen bei Tauglich!
             </Typography>
             <Typography variant="body1" color="text.secondary">
               Verwalte deine AGT-Tauglichkeit und erhalte rechtzeitig vor dem

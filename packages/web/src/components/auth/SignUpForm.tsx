@@ -85,13 +85,19 @@ export default function SignUpForm({ onToggleMode }: SignUpFormProps) {
         <Button
           type="submit"
           variant="contained"
+          color="secondary"
           disabled={loading}
           fullWidth
           size="large"
         >
           {loading ? "Konto wird erstellt..." : "Registrieren"}
         </Button>
-        <Button variant="text" onClick={onToggleMode} disabled={loading}>
+        <Button
+          variant="text"
+          color="secondary"
+          onClick={onToggleMode}
+          disabled={loading}
+        >
           Bereits ein Konto? Anmelden
         </Button>
       </Stack>
