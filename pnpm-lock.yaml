@@ -26,9 +26,6 @@ importers:
 
   packages/functions:
     dependencies:
-      '@agt-tauglich/model':
-        specifier: workspace:*
-        version: link:../model
       date-fns:
         specifier: ^4.1.0
         version: 4.1.0
@@ -39,13 +36,8 @@ importers:
         specifier: ^6.4.0
         version: 6.4.0(firebase-admin@13.5.0(encoding@0.1.13))
 
-  packages/model: {}
-
   packages/web:
     dependencies:
-      '@agt-tauglich/model':
-        specifier: workspace:*
-        version: link:../model
       '@emotion/react':
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.1.13)(react@19.1.1)

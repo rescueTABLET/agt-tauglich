@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
 import {
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  TextField,
-  Button,
   Alert,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
   Stack,
+  TextField,
 } from "@mui/material";
-import { ItemData, Item } from "@agt-tauglich/model";
+import { useEffect, useState } from "react";
+import { type Item, type ItemData } from "../../model";
 
 interface ItemFormProps {
   open: boolean;
@@ -79,7 +79,7 @@ export default function ItemForm({
     <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
       <form onSubmit={handleSubmit}>
         <DialogTitle>{title}</DialogTitle>
-        
+
         <DialogContent>
           {error && (
             <Alert severity="error" sx={{ mb: 2 }}>
@@ -97,7 +97,7 @@ export default function ItemForm({
               disabled={loading}
               placeholder="z.B. Erste Hilfe Kurs, Führerschein, ..."
             />
-            
+
             <TextField
               label="Gültig bis"
               type="date"
@@ -118,11 +118,7 @@ export default function ItemForm({
           <Button onClick={handleClose} disabled={loading}>
             Abbrechen
           </Button>
-          <Button
-            type="submit"
-            variant="contained"
-            disabled={loading}
-          >
+          <Button type="submit" variant="contained" disabled={loading}>
             {loading ? "Speichert..." : "Speichern"}
           </Button>
         </DialogActions>

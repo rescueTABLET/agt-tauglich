@@ -7,6 +7,5 @@
     "module": "CommonJS",
     "moduleResolution": "Node"
   },
-  "include": ["src/**/*.ts"],
-  "references": [{ "path": "../model" }]
+  "include": ["src/**/*.ts"]
 }

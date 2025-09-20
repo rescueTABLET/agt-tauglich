@@ -1,4 +1,3 @@
-import { Item, ItemData } from "@agt-tauglich/model";
 import { Add, Assignment } from "@mui/icons-material";
 import {
   Alert,
@@ -31,6 +30,7 @@ import {
   useUpdateItem,
   useUserData,
 } from "../hooks/useUserData";
+import { type Item, ItemData } from "../model";
 
 export const Route = createFileRoute("/dashboard")({
   component: Dashboard,

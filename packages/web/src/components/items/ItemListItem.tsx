@@ -1,4 +1,3 @@
-import { Item } from "@agt-tauglich/model";
 import { CheckCircle, Delete, Edit, Warning } from "@mui/icons-material";
 import {
   Box,
@@ -8,6 +7,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
+import { type Item } from "../../model";
 
 interface ItemListItemProps {
   item: Item;

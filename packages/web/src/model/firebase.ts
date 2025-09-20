@@ -1,4 +1,4 @@
-import { User, UserData, Item, ItemData } from "./types";
+import { Item, ItemData, User, UserData } from "./types";
 
 // Firestore-specific types (using maps instead of arrays)
 export type FirestoreUserData = {
@@ -14,7 +14,7 @@ export type FirestoreUser = {
 // Conversion functions from domain model to Firestore model
 export function toFirestoreUserData(userData: UserData): FirestoreUserData {
   const { items, ...rest } = userData;
-  
+
   if (!items || items.length === 0) {
     return {
       ...rest,
@@ -43,9 +43,11 @@ export function toFirestoreUser(user: User): FirestoreUser {
 }
 
 // Conversion functions from Firestore model to domain model
-export function fromFirestoreUserData(firestoreData: FirestoreUserData): UserData {
+export function fromFirestoreUserData(
+  firestoreData: FirestoreUserData
+): UserData {
   const { items, ...rest } = firestoreData;
-  
+
   if (!items || Object.keys(items).length === 0) {
     return {
       ...rest,
@@ -116,8 +118,9 @@ export function removeItemFromFirestoreData(
     return firestoreData;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { [itemId]: removed, ...remainingItems } = firestoreData.items;
-  
+
   return {
     ...firestoreData,
     items: remainingItems,

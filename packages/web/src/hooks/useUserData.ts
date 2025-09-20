@@ -1,6 +1,6 @@
-import { ItemData, User } from "@agt-tauglich/model";
 import { useCallback, useEffect, useState } from "react";
 import { useAuthenticated } from "../contexts/auth";
+import { type ItemData, type User } from "../model";
 import {
   addItem,
   deleteItem,

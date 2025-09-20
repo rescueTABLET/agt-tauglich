@@ -1,9 +1,5 @@
 {
   "$schema": "https://json.schemastore.org/tsconfig",
   "files": [],
-  "references": [
-    { "path": "packages/functions" },
-    { "path": "packages/model" },
-    { "path": "packages/web" }
-  ]
+  "references": [{ "path": "packages/functions" }, { "path": "packages/web" }]
 }

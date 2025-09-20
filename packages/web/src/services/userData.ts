@@ -1,11 +1,3 @@
-import {
-  type FirestoreUserData,
-  fromFirestoreUserData,
-  type ItemData,
-  toFirestoreUserData,
-  type User,
-  type UserData,
-} from "@agt-tauglich/model";
 import { User as FirebaseUser } from "firebase/auth";
 import {
   doc,
@@ -17,6 +9,14 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase";
+import {
+  type FirestoreUserData,
+  fromFirestoreUserData,
+  type ItemData,
+  toFirestoreUserData,
+  type User,
+  type UserData,
+} from "../model";
 
 export async function getUserData(user: FirebaseUser): Promise<User | null> {
   const userDoc = doc(db, "users", user.uid);

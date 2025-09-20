@@ -12,7 +12,6 @@ This is a monorepo using pnpm workspaces with Firebase integration. The project 
 
 - **packages/web**: React frontend application built with Vite, Material-UI, and TypeScript
 - **packages/functions**: Firebase Cloud Functions for backend services (Node.js 24)
-- **packages/model**: Shared TypeScript types and data models
 - **Root**: Workspace configuration and build orchestration
 
 ## Key Commands
@@ -46,13 +45,7 @@ This is a monorepo using pnpm workspaces with Firebase integration. The project 
 - Firebase Cloud Functions in europe-west1 region
 - Admin SDK for Firestore operations
 - Scheduled functions for reminder system
-- Integration with shared model types
-
-### Data Model (packages/model)
-
-- Shared TypeScript types for User, Item, Reminder entities
-- Firebase utility functions
-- Identifiable pattern for all entities
+- TypeScript types and data models integrated within the functions package
 
 ## Firebase Configuration
 
