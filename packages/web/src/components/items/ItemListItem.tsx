@@ -1,4 +1,4 @@
-import { CheckCircle, Delete, Edit, Warning } from "@mui/icons-material";
+import { CheckCircle, Delete, Edit, Warning, Notifications } from "@mui/icons-material";
 import {
   Box,
   Chip,
@@ -7,7 +7,7 @@ import {
   ListItemText,
   Typography,
 } from "@mui/material";
-import { type Item } from "../../model";
+import { type Item, type Advance } from "../../model";
 
 interface ItemListItemProps {
   item: Item;
@@ -66,6 +66,30 @@ export default function ItemListItem({
     });
   };
 
+  const formatAdvance = (advance: Advance): string => {
+    if ("days" in advance) {
+      return `${advance.days} ${advance.days === 1 ? "Tag" : "Tage"}`;
+    }
+    if ("weeks" in advance) {
+      return `${advance.weeks} ${advance.weeks === 1 ? "Woche" : "Wochen"}`;
+    }
+    return `${advance.months} ${advance.months === 1 ? "Monat" : "Monate"}`;
+  };
+
+  const getReminderSummary = () => {
+    if (!item.reminders || item.reminders.length === 0) {
+      return null;
+    }
+
+    if (item.reminders.length === 1) {
+      return `Erinnerung: ${formatAdvance(item.reminders[0].advance)} vorher`;
+    }
+
+    return `${item.reminders.length} Erinnerungen`;
+  };
+
+  const reminderSummary = getReminderSummary();
+
   return (
     <ListItem
       divider={divider}
@@ -77,6 +101,14 @@ export default function ItemListItem({
             color={statusInfo.color}
             size="small"
           />
+          {reminderSummary && (
+            <Chip
+              icon={<Notifications />}
+              label={reminderSummary}
+              variant="outlined"
+              size="small"
+            />
+          )}
           <IconButton
             onClick={onEdit}
             size="small"

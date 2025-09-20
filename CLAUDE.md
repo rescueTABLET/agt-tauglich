@@ -4,7 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Description
 
-This application allows users to track the expiration dates of various trainings, informs them whether they meet all required training requirements or if some of their trainings have expired. They can configure reminders that are sent at a configurable time ahead of the the expiration date. The application language is German.
+This application allows users to track the expiration dates of various trainings, informs them whether they meet all required training requirements or if some of their trainings have expired. They can configure reminders that are sent at a configurable time ahead of the the expiration date.
+
+## Language
+
+The application language is German. All user interface elements should be displayed in German. We use an informal tone of voice with "du" instead of "Sie".
 
 ## Project Structure
 

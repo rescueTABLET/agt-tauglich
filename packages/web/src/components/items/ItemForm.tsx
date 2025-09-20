@@ -9,7 +9,8 @@ import {
   TextField,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { type Item, type ItemData } from "../../model";
+import { type Item, type ItemData, type Reminder } from "../../model";
+import ReminderConfig from "./ReminderConfig";
 
 interface ItemFormProps {
   open: boolean;
@@ -28,6 +29,7 @@ export default function ItemForm({
 }: ItemFormProps) {
   const [label, setLabel] = useState("");
   const [validUntil, setValidUntil] = useState("");
+  const [reminders, setReminders] = useState<ReadonlyArray<Reminder>>([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -36,6 +38,7 @@ export default function ItemForm({
     if (open) {
       setLabel(item?.label || "");
       setValidUntil(item?.validUntil || "");
+      setReminders(item?.reminders || []);
       setError("");
     }
   }, [open, item]);
@@ -60,6 +63,7 @@ export default function ItemForm({
       await onSave({
         label: label.trim(),
         validUntil,
+        reminders: reminders.length > 0 ? reminders : undefined,
       });
       onClose();
     } catch (err: any) {
@@ -110,6 +114,12 @@ export default function ItemForm({
                 shrink: true,
               }}
               helperText="Das letzte Datum, an dem das Element gültig ist"
+            />
+
+            <ReminderConfig
+              reminders={reminders}
+              onChange={setReminders}
+              disabled={loading}
             />
           </Stack>
         </DialogContent>

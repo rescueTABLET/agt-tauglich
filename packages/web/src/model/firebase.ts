@@ -1,10 +1,16 @@
-import { Item, ItemData, User, UserData } from "./types";
+import { Item, ItemData, User, UserData, Reminder, ReminderData } from "./types";
 
 // Firestore-specific types (using maps instead of arrays)
+export type FirestoreItemData = {
+  label: string;
+  validUntil: string;
+  reminders?: Record<string, ReminderData>;
+};
+
 export type FirestoreUserData = {
   email: string;
   displayName?: string;
-  items?: Record<string, ItemData>;
+  items?: Record<string, FirestoreItemData>;
 };
 
 export type FirestoreUser = {
@@ -22,10 +28,10 @@ export function toFirestoreUserData(userData: UserData): FirestoreUserData {
     };
   }
 
-  const itemsMap: Record<string, ItemData> = {};
+  const itemsMap: Record<string, FirestoreItemData> = {};
   for (const item of items) {
     const { id, ...itemData } = item;
-    itemsMap[id] = itemData;
+    itemsMap[id] = toFirestoreItemData(itemData);
   }
 
   return {
@@ -56,7 +62,8 @@ export function fromFirestoreUserData(
   }
 
   const itemsArray: Item[] = [];
-  for (const [id, itemData] of Object.entries(items)) {
+  for (const [id, firestoreItemData] of Object.entries(items)) {
+    const itemData = fromFirestoreItemData(firestoreItemData);
     itemsArray.push({
       id,
       ...itemData,
@@ -87,7 +94,7 @@ export function addItemToFirestoreData(
     ...firestoreData,
     items: {
       ...firestoreData.items,
-      [itemId]: itemData,
+      [itemId]: toFirestoreItemData(itemData),
     },
   };
 }
@@ -105,7 +112,7 @@ export function updateItemInFirestoreData(
     ...firestoreData,
     items: {
       ...firestoreData.items,
-      [itemId]: itemData,
+      [itemId]: toFirestoreItemData(itemData),
     },
   };
 }
@@ -124,5 +131,52 @@ export function removeItemFromFirestoreData(
   return {
     ...firestoreData,
     items: remainingItems,
+  };
+}
+
+// Conversion functions for ItemData with reminders
+export function toFirestoreItemData(itemData: ItemData): FirestoreItemData {
+  const { reminders, ...rest } = itemData;
+
+  if (!reminders || reminders.length === 0) {
+    return {
+      ...rest,
+      reminders: {},
+    };
+  }
+
+  const remindersMap: Record<string, ReminderData> = {};
+  for (const reminder of reminders) {
+    const { id, ...reminderData } = reminder;
+    remindersMap[id] = reminderData;
+  }
+
+  return {
+    ...rest,
+    reminders: remindersMap,
+  };
+}
+
+export function fromFirestoreItemData(firestoreItemData: FirestoreItemData): ItemData {
+  const { reminders, ...rest } = firestoreItemData;
+
+  if (!reminders || Object.keys(reminders).length === 0) {
+    return {
+      ...rest,
+      reminders: [],
+    };
+  }
+
+  const remindersArray: Reminder[] = [];
+  for (const [id, reminderData] of Object.entries(reminders)) {
+    remindersArray.push({
+      id,
+      ...reminderData,
+    });
+  }
+
+  return {
+    ...rest,
+    reminders: remindersArray,
   };
 }

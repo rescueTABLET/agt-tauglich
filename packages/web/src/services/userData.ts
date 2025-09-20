@@ -13,6 +13,7 @@ import {
   type FirestoreUserData,
   fromFirestoreUserData,
   type ItemData,
+  toFirestoreItemData,
   toFirestoreUserData,
   type User,
   type UserData,
@@ -81,7 +82,7 @@ export async function addItem(
   const userDoc = doc(db, "users", userId);
 
   await updateDoc(userDoc, {
-    [`items.${itemId}`]: itemData,
+    [`items.${itemId}`]: toFirestoreItemData(itemData),
   });
 }
 
@@ -93,7 +94,7 @@ export async function updateItem(
   const userDoc = doc(db, "users", userId);
 
   await updateDoc(userDoc, {
-    [`items.${itemId}`]: itemData,
+    [`items.${itemId}`]: toFirestoreItemData(itemData),
   });
 }
 
