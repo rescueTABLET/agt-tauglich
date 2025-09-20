@@ -1,20 +1,16 @@
-import { Add, Assignment } from "@mui/icons-material";
+import { Add } from "@mui/icons-material";
 import {
   Alert,
   AppBar,
-  Avatar,
   Box,
   Button,
-  Card,
-  CardContent,
-  CardHeader,
+  Container,
   Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
   Divider,
   LinearProgress,
-  List,
   Toolbar,
   Typography,
 } from "@mui/material";
@@ -96,20 +92,6 @@ function Dashboard() {
   };
 
   const items = userData?.items || [];
-  const itemCount = items.length;
-  const expiringSoonCount = items.filter((item) => {
-    const validUntilDate = new Date(item.validUntil);
-    const today = new Date();
-    const timeDiff = validUntilDate.getTime() - today.getTime();
-    const daysUntilExpiry = Math.ceil(timeDiff / (1000 * 3600 * 24));
-    return daysUntilExpiry <= 30 && daysUntilExpiry >= 0;
-  }).length;
-
-  const expiredCount = items.filter((item) => {
-    const validUntilDate = new Date(item.validUntil);
-    const today = new Date();
-    return validUntilDate < today;
-  }).length;
 
   return (
     <>
@@ -123,89 +105,50 @@ function Dashboard() {
           </Box>
         </Toolbar>
       </AppBar>
-      <Box
-        sx={{
-          py: { md: 4 },
-          px: { md: 3 },
-          maxWidth: (theme) => theme.breakpoints.values.md,
-          mx: "auto",
-        }}
-      >
+      <Container sx={{ py: 2 }}>
         {error && (
           <Alert severity="error" sx={{ mb: 3 }}>
             {error}
           </Alert>
         )}
-        <Card sx={{ borderRadius: { xs: 0, md: 2 } }}>
-          <CardHeader
-            title="Meine Tauglichkeiten"
-            avatar={
-              user.photoURL ? <Avatar src={user.photoURL} /> : <Assignment />
-            }
-            action={
-              <Button
-                variant="contained"
-                startIcon={<Add />}
-                onClick={handleAddItem}
-              >
-                Hinzufügen
-              </Button>
-            }
-          />
-          {loading ? (
-            <LinearProgress />
-          ) : itemCount === 0 ? (
-            <CardContent sx={{ textAlign: "center" }}>
-              <Typography variant="h6" gutterBottom color="text.secondary">
-                Noch keine Tauglichkeiten hinzugefügt
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-                Füge deine erste Tauglichkeit hinzu, um den Überblick über
-                Ablaufdaten zu behalten.
-              </Typography>
-              <Button
-                variant="contained"
-                startIcon={<Add />}
-                onClick={handleAddItem}
-                size="large"
-              >
-                Erste Tauglichkeit hinzufügen
-              </Button>
-            </CardContent>
-          ) : (
-            <>
-              <CardContent sx={{ pb: 0 }}>
-                {expiredCount > 0 && (
-                  <Typography color="error" variant="body2">
-                    ⚠️ {expiredCount} abgelaufen
-                  </Typography>
-                )}
-
-                {expiringSoonCount > 0 && (
-                  <Typography color="warning.main" variant="body2">
-                    ⏰ {expiringSoonCount} laufen in den nächsten 30 Tagen ab
-                  </Typography>
-                )}
-              </CardContent>
-              <List>
-                {[...items]
-                  .sort((a, b) => a.validUntil.localeCompare(b.validUntil))
-                  .map((item, index) => (
-                    <ItemListItem
-                      key={item.id}
-                      item={item}
-                      divider={index < items.length - 1}
-                      onEdit={() => handleEditItem(item)}
-                      onDelete={() => handleDeleteClick(item)}
-                    />
-                  ))}
-              </List>
-            </>
-          )}
-          <Divider />
-          <Footer />
-        </Card>
-      </Box>
+        <Button
+          variant="contained"
+          startIcon={<Add />}
+          onClick={handleAddItem}
+          sx={{ mb: 2 }}
+        >
+          Hinzufügen
+        </Button>
+        {loading ? (
+          <LinearProgress />
+        ) : (
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+                xs: "1fr",
+                sm: "1fr 1fr",
+                md: "1fr 1fr 1fr",
+              },
+              gap: 1,
+              mb: 2,
+            }}
+          >
+            {[...items]
+              .sort((a, b) => a.validUntil.localeCompare(b.validUntil))
+              .map((item) => (
+                <ItemListItem
+                  key={item.id}
+                  item={item}
+                  onEdit={() => handleEditItem(item)}
+                  onDelete={() => handleDeleteClick(item)}
+                />
+              ))}
+          </Box>
+        )}
+        <Divider />
+        <Footer />
+      </Container>
 
       <ItemForm
         open={formOpen}
