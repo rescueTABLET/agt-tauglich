@@ -1,16 +1,12 @@
 import { defineString } from "firebase-functions/params";
 
 export const appUrlParam = defineString("APP_URL", {
-  default: "https://agt-tauglich.web.app",
-});
-
-export const sendRemindersCronParam = defineString("SEND_REMINDERS_CRON", {
-  default: "0 7 * * *",
+  default: "https://tauglich.rescuetablet.com",
 });
 
 // AWS SES Configuration
 export const sesRegionParam = defineString("SES_REGION", {
-  default: "eu-central-1",
+  default: "eu-west-1",
 });
 
 export const sesFromEmailParam = defineString("SES_FROM_EMAIL");

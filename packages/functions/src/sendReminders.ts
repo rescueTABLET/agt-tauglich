@@ -82,7 +82,7 @@ Vergiss nicht, sie rechtzeitig zu verlängern!
 Viele Grüße
 Dein rescueTABLET Team
 
-https://agt-tauglich.web.app/
+https://tauglich.rescuetablet.com/
 `;
 
         await sendEmailNotification({
