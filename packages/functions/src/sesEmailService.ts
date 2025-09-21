@@ -1,11 +1,12 @@
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 import * as logger from "firebase-functions/logger";
+import { memoize } from "./memoize";
 import {
-  sesRegionParam,
-  sesFromEmailParam,
-  sesFromNameParam,
   awsAccessKeyIdParam,
   awsSecretAccessKeyParam,
+  sesFromEmailParam,
+  sesFromNameParam,
+  sesRegionParam,
 } from "./params";
 
 export interface EmailNotification {
@@ -29,7 +30,7 @@ class SESEmailService {
           secretAccessKey: awsSecretAccessKeyParam.value(),
         },
       });
-      
+
       this.fromEmail = sesFromEmailParam.value();
       this.fromName = sesFromNameParam.value();
     }
@@ -37,7 +38,9 @@ class SESEmailService {
 
   async sendEmailNotification(notification: EmailNotification): Promise<void> {
     if (!this.sesClient) {
-      throw new Error("SES client not initialized - running in test environment");
+      throw new Error(
+        "SES client not initialized - running in test environment"
+      );
     }
 
     const fromAddress = `${this.fromName} <${this.fromEmail}>`;
@@ -67,7 +70,7 @@ class SESEmailService {
     try {
       const command = new SendEmailCommand(params);
       const result = await this.sesClient.send(command);
-      
+
       logger.info("Email sent successfully via SES", {
         messageId: result.MessageId,
         recipient: notification.recipient.address,
@@ -84,10 +87,11 @@ class SESEmailService {
   }
 }
 
-// Export a singleton instance
-export const sesEmailService = new SESEmailService();
+const getSESEmailService = memoize(() => new SESEmailService());
 
 // Export the function for compatibility with existing code
-export async function sendEmailNotification(notification: EmailNotification): Promise<void> {
-  return sesEmailService.sendEmailNotification(notification);
+export async function sendEmailNotification(
+  notification: EmailNotification
+): Promise<void> {
+  return getSESEmailService().sendEmailNotification(notification);
 }

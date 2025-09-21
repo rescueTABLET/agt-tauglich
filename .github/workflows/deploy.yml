@@ -53,6 +53,11 @@ jobs:
         run: |
           echo 'APP_URL="${{ vars.APP_URL }}"' >> packages/functions/.env
           echo 'SEND_REMINDERS_CRON="0 7 * * *"' >> packages/functions/.env
+          echo 'SES_REGION="${{ vars.SES_REGION }}"' >> packages/functions/.env
+          echo 'SES_FROM_EMAIL="${{ vars.SES_FROM_EMAIL }}"' >> packages/functions/.env
+          echo 'SES_FROM_NAME="${{ vars.SES_FROM_NAME }}"' >> packages/functions/.env
+          echo 'SES_ACCESS_KEY_ID="${{ vars.SES_ACCESS_KEY_ID }}"' >> packages/functions/.env
+          echo 'SES_SECRET_ACCESS_KEY="${{ secrets.SES_SECRET_ACCESS_KEY }}"' >> packages/functions/.env
 
       - name: Select project
         run: pnpm firebase use ${{ vars.FIREBASE_PROJECT }}
