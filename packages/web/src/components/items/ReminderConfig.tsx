@@ -1,4 +1,6 @@
+import { Add as AddIcon, Delete as DeleteIcon } from "@mui/icons-material";
 import {
+  Box,
   Button,
   Card,
   CardContent,
@@ -11,9 +13,8 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { Delete as DeleteIcon, Add as AddIcon } from "@mui/icons-material";
 import { useState } from "react";
-import { type Reminder, type ReminderData, type Advance } from "../../model";
+import { type Advance, type Reminder, type ReminderData } from "../../model";
 
 interface ReminderConfigProps {
   reminders: ReadonlyArray<Reminder>;
@@ -27,7 +28,6 @@ interface ReminderFormData {
   value: number;
   unit: AdvanceUnit;
 }
-
 
 function formDataToAdvance(formData: ReminderFormData): Advance {
   switch (formData.unit) {
@@ -103,7 +103,6 @@ export default function ReminderConfig({
                     {formatAdvance(reminder.advance)} vorher per E-Mail
                   </Typography>
                   <IconButton
-                    size="small"
                     onClick={() => handleDeleteReminder(reminder.id)}
                     disabled={disabled}
                     color="error"
@@ -118,11 +117,18 @@ export default function ReminderConfig({
       )}
 
       <Card variant="outlined">
-        <CardContent>
-          <Typography variant="subtitle2" gutterBottom>
+        <CardContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          <Typography variant="subtitle2">
             Neue Erinnerung hinzufügen
           </Typography>
-          <Stack direction="row" spacing={2} alignItems="center">
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              gap: 1,
+              alignItems: "center",
+            }}
+          >
             <TextField
               label="Anzahl"
               type="number"
@@ -134,11 +140,11 @@ export default function ReminderConfig({
                 })
               }
               size="small"
-              sx={{ width: 120 }}
               disabled={disabled}
-              inputProps={{ min: 1 }}
+              slotProps={{ htmlInput: { min: 1 } }}
+              sx={{ flex: 1 }}
             />
-            <FormControl size="small" sx={{ minWidth: 120 }}>
+            <FormControl>
               <InputLabel>Einheit</InputLabel>
               <Select
                 value={newReminder.unit}
@@ -148,34 +154,33 @@ export default function ReminderConfig({
                     unit: e.target.value as AdvanceUnit,
                   })
                 }
+                size="small"
                 label="Einheit"
                 disabled={disabled}
+                sx={{ flex: 1 }}
               >
-                <MenuItem value="days">Tage</MenuItem>
-                <MenuItem value="weeks">Wochen</MenuItem>
-                <MenuItem value="months">Monate</MenuItem>
+                <MenuItem value="days">Tage vorher</MenuItem>
+                <MenuItem value="weeks">Wochen vorher</MenuItem>
+                <MenuItem value="months">Monate vorher</MenuItem>
               </Select>
             </FormControl>
-            <Typography variant="body2" color="text.secondary">
-              vorher per E-Mail
-            </Typography>
             <Button
               variant="outlined"
+              size="small"
               startIcon={<AddIcon />}
               onClick={handleAddReminder}
               disabled={!canAddReminder}
-              size="small"
             >
               Hinzufügen
             </Button>
-          </Stack>
+          </Box>
         </CardContent>
       </Card>
 
       {reminders.length === 0 && (
         <Typography variant="body2" color="text.secondary">
-          Keine Erinnerungen konfiguriert. Füge eine Erinnerung hinzu, um
-          vor Ablauf benachrichtigt zu werden.
+          Keine Erinnerungen konfiguriert. Füge eine Erinnerung hinzu, um vor
+          Ablauf benachrichtigt zu werden.
         </Typography>
       )}
     </Stack>
