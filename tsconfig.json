@@ -5,11 +5,12 @@
     "composite": true,
     "target": "ES2023",
     "module": "Preserve",
-    "moduleResolution": "Bundler",
+    "moduleResolution": "Node",
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "declaration": true
+    "declaration": true,
+    "skipLibCheck": true
   }
 }
