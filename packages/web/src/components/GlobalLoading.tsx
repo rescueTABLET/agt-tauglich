@@ -16,7 +16,7 @@ export default function GlobalLoading() {
       <Box
         sx={{
           position: "relative",
-          bgcolor: "background.paper",
+          bgcolor: "secondary.main",
           borderRadius: "50%",
           boxShadow: 1,
           width: "8rem",
@@ -30,13 +30,14 @@ export default function GlobalLoading() {
           <CircularProgress
             size="100%"
             thickness={2}
-            sx={{ position: "absolute", inset: 0 }}
+            color="inherit"
+            sx={{ color: "secondary.light", position: "absolute", inset: 0 }}
           />
         </Delay>
         <ThumbUp
           sx={{
             fontSize: "4rem",
-            color: "secondary.main",
+            color: "common.white",
             position: "relative",
           }}
         />
