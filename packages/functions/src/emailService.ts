@@ -23,12 +23,16 @@ export async function sendEmailNotification(
     await sendViaSES(notification);
   } catch (error) {
     // Log the error but don't throw to prevent breaking the reminder flow
-    logger.error("Failed to send email notification", {
-      recipient: notification.recipient.address,
-      subject: notification.subject,
-      error: error instanceof Error ? error.message : String(error),
-    });
-    
+    logger.error(
+      "Failed to send email notification",
+      {
+        recipient: notification.recipient.address,
+        subject: notification.subject,
+        error: error instanceof Error ? error.message : String(error),
+      },
+      error
+    );
+
     // In production, we might want to add the email to a retry queue
     // For now, we'll just log the failure
   }

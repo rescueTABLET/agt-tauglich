@@ -155,7 +155,7 @@ async function processUserDocument(
   return reminderCount;
 }
 
-export async function sendReminders(threshold: Date): Promise<void> {
+export async function sendReminders(threshold: Date): Promise<number> {
   logger.info(
     "Sending reminders for threshold %s",
     format(threshold, "yyyy-MM-dd")
@@ -198,6 +198,7 @@ export async function sendReminders(threshold: Date): Promise<void> {
     logger.info(
       `Sent ${reminderCount} reminders for threshold ${format(threshold, "yyyy-MM-dd")} (processed ${userCount} users)`
     );
+    return reminderCount;
   } catch (error) {
     logger.error("Error sending reminders", {
       threshold: format(threshold, "yyyy-MM-dd"),

@@ -9,5 +9,11 @@ export const triggerReminders = onRequest(async (req, res) => {
       : addDays(new Date(), -30);
 
   const count = await sendReminders(threshold);
-  res.send(JSON.stringify({ count }));
+
+  res.send(
+    JSON.stringify({
+      count,
+      threshold: threshold.toISOString().substring(0, 10),
+    })
+  );
 });

@@ -1,4 +1,8 @@
-import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
+import {
+  SESClient,
+  SendEmailCommand,
+  type SendEmailCommandInput,
+} from "@aws-sdk/client-ses";
 import * as logger from "firebase-functions/logger";
 import { memoize } from "./memoize";
 import {
@@ -48,7 +52,7 @@ class SESEmailService {
       ? `${notification.recipient.name} <${notification.recipient.address}>`
       : notification.recipient.address;
 
-    const params = {
+    const params: SendEmailCommandInput = {
       Source: fromAddress,
       Destination: {
         ToAddresses: [toAddress],
@@ -67,23 +71,15 @@ class SESEmailService {
       },
     };
 
-    try {
-      const command = new SendEmailCommand(params);
-      const result = await this.sesClient.send(command);
+    logger.info("Sending email via SES:", params);
+    const command = new SendEmailCommand(params);
+    const result = await this.sesClient.send(command);
 
-      logger.info("Email sent successfully via SES", {
-        messageId: result.MessageId,
-        recipient: notification.recipient.address,
-        subject: notification.subject,
-      });
-    } catch (error) {
-      logger.error("Failed to send email via SES", {
-        recipient: notification.recipient.address,
-        subject: notification.subject,
-        error: error instanceof Error ? error.message : String(error),
-      });
-      throw error;
-    }
+    logger.info("Email sent successfully via SES:", {
+      messageId: result.MessageId,
+      recipient: notification.recipient.address,
+      subject: notification.subject,
+    });
   }
 }
 
