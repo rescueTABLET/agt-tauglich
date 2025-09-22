@@ -35,6 +35,15 @@ const theme = responsiveFontSizes(
       fontFamily: "'Open Sans Variable', sans-serif",
     },
     components: {
+      MuiAlert: {
+        styleOverrides: {
+          root: {
+            borderRadius: 24,
+            padding: 16,
+            alignItems: "center",
+          },
+        },
+      },
       MuiButton: {
         styleOverrides: {
           root: {
@@ -48,6 +57,13 @@ const theme = responsiveFontSizes(
           root: {
             borderRadius: 24,
             padding: 8,
+          },
+        },
+      },
+      MuiCardActions: {
+        styleOverrides: {
+          root: {
+            justifyContent: "flex-end",
           },
         },
       },

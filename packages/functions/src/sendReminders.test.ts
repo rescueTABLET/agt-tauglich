@@ -23,7 +23,7 @@ describe("sendReminders", () => {
     });
 
     // Act & Assert
-    await expect(sendReminders(threshold)).resolves.toBeUndefined();
+    await expect(sendReminders(threshold)).resolves.toEqual(0);
 
     expect(mockPaginatedUsers).toHaveBeenCalledWith(100);
     expect(mockSendEmailNotification).not.toHaveBeenCalled();
@@ -46,7 +46,7 @@ describe("sendReminders", () => {
     });
 
     // Act & Assert
-    await expect(sendReminders(threshold)).resolves.toBeUndefined();
+    await expect(sendReminders(threshold)).resolves.toEqual(0);
 
     expect(mockPaginatedUsers).toHaveBeenCalledWith(100);
     expect(mockSendEmailNotification).not.toHaveBeenCalled();
@@ -270,7 +270,7 @@ describe("sendReminders", () => {
     });
 
     // Act & Assert - Should not throw
-    await expect(sendReminders(threshold)).resolves.toBeUndefined();
+    await expect(sendReminders(threshold)).resolves.toEqual(0);
     expect(mockSendEmailNotification).not.toHaveBeenCalled();
   });
 

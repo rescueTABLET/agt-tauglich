@@ -1,4 +1,4 @@
-import { User } from "firebase/auth";
+import { type User } from "firebase/auth";
 import { createContext } from "react";
 
 export type Anonymous = { state: "anonymous" };
@@ -10,4 +10,6 @@ export type Authenticated = {
 
 export type AuthContextType = Anonymous | Authenticated;
 
-export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);

@@ -17,6 +17,7 @@ export default function SignOutButton() {
     <Button
       variant="text"
       color="inherit"
+      size="small"
       startIcon={<Logout />}
       onClick={handleSignOut}
     >

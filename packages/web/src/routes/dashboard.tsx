@@ -1,7 +1,6 @@
-import { Add } from "@mui/icons-material";
+import { Add, ThumbDown, ThumbUp } from "@mui/icons-material";
 import {
   Alert,
-  AppBar,
   Box,
   Button,
   Container,
@@ -10,10 +9,10 @@ import {
   DialogContent,
   DialogTitle,
   LinearProgress,
-  Toolbar,
   Typography,
 } from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
+import { addDays } from "date-fns";
 import { useState } from "react";
 import SignOutButton from "../components/auth/SignOutButton";
 import Footer from "../components/Footer";
@@ -26,7 +25,7 @@ import {
   useUpdateItem,
   useUserData,
 } from "../hooks/useUserData";
-import { type Item, ItemData } from "../model";
+import { type Item, ItemData, UserData } from "../model";
 
 export const Route = createFileRoute("/dashboard")({
   component: Dashboard,
@@ -94,24 +93,14 @@ function Dashboard() {
 
   return (
     <>
-      <AppBar>
-        <Toolbar>
-          <Typography variant="h6" component="div">
-            Tauglich?
-          </Typography>
-          <Box sx={{ ml: "auto" }}>
-            <SignOutButton />
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Toolbar />
       <Container
+        maxWidth="md"
         sx={{
           py: 2,
-          "--toolbar-height": { xs: "48px", sm: "64px" },
-          minHeight: "calc(100vh - var(--toolbar-height))",
+          minHeight: "100vh",
           display: "flex",
           flexDirection: "column",
+          justifyContent: "center",
           gap: 2,
         }}
       >
@@ -120,17 +109,7 @@ function Dashboard() {
             {error}
           </Alert>
         )}
-        <Box>
-          <Button
-            variant="contained"
-            color="primary"
-            size="large"
-            startIcon={<Add />}
-            onClick={handleAddItem}
-          >
-            Tauglichkeit hinzufügen
-          </Button>
-        </Box>
+        {userData && <Hero user={userData} handleAddItem={handleAddItem} />}
         {loading ? (
           <LinearProgress />
         ) : (
@@ -157,7 +136,7 @@ function Dashboard() {
               ))}
           </Box>
         )}
-        <Box sx={{ mt: "auto" }}>
+        <Box sx={{ mt: 4 }}>
           <Footer />
         </Box>
       </Container>
@@ -202,5 +181,86 @@ function Dashboard() {
         </DialogActions>
       </Dialog>
     </>
+  );
+}
+
+function Hero({
+  user,
+  handleAddItem,
+}: {
+  user: UserData;
+  handleAddItem: () => void;
+}) {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        gap: 2,
+      }}
+    >
+      <Typography variant="h5">Hallo {user.displayName}!</Typography>
+      <Status user={user} />
+      <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        startIcon={<Add />}
+        onClick={handleAddItem}
+      >
+        Tauglichkeit hinzufügen
+      </Button>
+      <SignOutButton />
+    </Box>
+  );
+}
+
+function Status({ user }: { user: UserData }) {
+  const items = user.items ?? [];
+  const now = new Date().toISOString().substring(0, 10);
+  const warningThreshold = addDays(new Date(), -30)
+    .toISOString()
+    .substring(0, 10);
+  const anyExpired = items.some((item) => item.validUntil < now);
+  const anyWarning = items.some(
+    (item) => item.validUntil < warningThreshold && item.validUntil >= now
+  );
+
+  if (anyExpired) {
+    return (
+      <Alert
+        severity="error"
+        variant="filled"
+        icon={<ThumbDown />}
+        sx={{ fontSize: "1.5rem" }}
+      >
+        Deine Tauglichkeit ist abgelaufen!
+      </Alert>
+    );
+  }
+
+  if (anyWarning) {
+    return (
+      <Alert
+        severity="warning"
+        variant="filled"
+        icon={<ThumbDown />}
+        sx={{ fontSize: "1.5rem" }}
+      >
+        Deine Tauglichkeit läuft bald ab!
+      </Alert>
+    );
+  }
+
+  return (
+    <Alert
+      severity="success"
+      variant="filled"
+      icon={<ThumbUp />}
+      sx={{ fontSize: "1.5rem" }}
+    >
+      Du bist tauglich!
+    </Alert>
   );
 }
