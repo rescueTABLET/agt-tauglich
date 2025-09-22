@@ -3,7 +3,7 @@ import react from "@vitejs/plugin-react-swc";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 
-// for s in 48 72 96 144 192 512 1024; do inkscape -w $s -h $s public/favicon.svg -o public/logo-$s.png; inkscape -w $s -h $s public/logo-maskable.svg -o public/logo-maskable-$s.png; done
+// for s in 48 72 96 144 192 512 1024; do inkscape -w $s -h $s public/logo.svg -o public/logo-$s.png; inkscape -w $s -h $s public/logo-maskable.svg -o public/logo-maskable-$s.png; done
 const iconSizes = [48, 72, 96, 144, 192, 512, 1024];
 
 // https://vitejs.dev/config/

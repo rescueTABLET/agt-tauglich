@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { createFileRoute } from "@tanstack/react-router";
 import { addDays } from "date-fns";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SignOutButton from "../components/auth/SignOutButton";
 import Footer from "../components/Footer";
 import ItemForm from "../components/items/ItemForm";
@@ -226,6 +226,15 @@ function Status({ user }: { user: UserData }) {
   const anyWarning = items.some(
     (item) => item.validUntil < warningThreshold && item.validUntil >= now
   );
+
+  useEffect(() => {
+    const statusColor = anyExpired
+      ? "var(--mui-palette-error-main)"
+      : anyWarning
+        ? "var(--mui-palette-warning-main)"
+        : "var(--mui-palette-success-main)";
+    document.documentElement.style.setProperty("--status-color", statusColor);
+  }, [anyExpired, anyWarning]);
 
   if (anyExpired) {
     return (
