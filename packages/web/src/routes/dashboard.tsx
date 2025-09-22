@@ -123,11 +123,12 @@ function Dashboard() {
         <Box>
           <Button
             variant="contained"
-            color="secondary"
+            color="primary"
+            size="large"
             startIcon={<Add />}
             onClick={handleAddItem}
           >
-            Hinzufügen
+            Tauglichkeit hinzufügen
           </Button>
         </Box>
         {loading ? (
@@ -141,7 +142,7 @@ function Dashboard() {
                 sm: "1fr 1fr",
                 md: "1fr 1fr 1fr",
               },
-              gap: 1,
+              gap: 2,
             }}
           >
             {[...items]

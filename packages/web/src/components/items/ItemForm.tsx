@@ -136,7 +136,7 @@ export default function ItemForm({
           <Button
             type="submit"
             variant="contained"
-            color="secondary"
+            color="primary"
             disabled={loading}
           >
             {loading ? "Speichert..." : "Speichern"}

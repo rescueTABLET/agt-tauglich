@@ -1,3 +1,4 @@
+import { ThumbUp } from "@mui/icons-material";
 import { Box, Card, CardContent, Divider, Typography } from "@mui/material";
 import { createFileRoute, Navigate } from "@tanstack/react-router";
 import { useState } from "react";
@@ -29,7 +30,7 @@ function LandingPage() {
   };
 
   return (
-    <Box sx={{ display: "flex", alignItems: "center" }}>
+    <Box sx={{ display: "flex", alignItems: "center", minHeight: "100vh" }}>
       <Box
         sx={{
           py: { sm: 4 },
@@ -40,21 +41,20 @@ function LandingPage() {
       >
         <Card sx={{ borderRadius: { xs: 0, sm: 2 } }}>
           <CardContent sx={{ textAlign: "center" }}>
+            <ThumbUp sx={{ fontSize: "6rem", color: "primary.main", my: 2 }} />
             <Typography variant="h4" component="h1" gutterBottom>
-              Willkommen bei Tauglich!
+              Bist du tauglich?
             </Typography>
-            <Typography variant="body1" color="text.secondary">
-              Verwalte deine AGT-Tauglichkeit und erhalte rechtzeitig vor dem
-              Ablauf Erinnerungen.
+            <Typography>
+              Mit dieser App hast du deine AGT-Tauglichkeit immer im Blick und
+              erhältst rechtzeitig vor Ablauf eine Erinnerung.
             </Typography>
           </CardContent>
           <CardContent>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 3 }}>
               <GoogleSignInButton />
               <Divider>
-                <Typography variant="body2" color="text.secondary">
-                  oder
-                </Typography>
+                <Typography variant="body2">oder</Typography>
               </Divider>
               {isSignUp ? (
                 <SignUpForm onToggleMode={toggleMode} />
@@ -63,7 +63,7 @@ function LandingPage() {
               )}
             </Box>
           </CardContent>
-          <Divider />
+          <Divider sx={{ my: 2 }} />
           <Footer />
         </Card>
       </Box>

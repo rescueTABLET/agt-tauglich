@@ -1,6 +1,6 @@
 import { Box, Link, Typography } from "@mui/material";
-import { Logo as RescueTabletLogo } from "@rescuetablet/theme";
 import { version } from "../config";
+import RescueTabletLogo from "./RescueTabletLogo";
 
 export default function Footer() {
   return (
@@ -10,7 +10,7 @@ export default function Footer() {
         display: "flex",
         flexDirection: "column",
         py: 1,
-        color: "text.secondary",
+        color: "text.primary",
       }}
     >
       <Box

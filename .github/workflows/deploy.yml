@@ -27,12 +27,6 @@ jobs:
           node-version-file: package.json
           cache: pnpm
 
-      - name: Configure npm authentication
-        if: steps.npm-cache.outputs.cache-hit != 'true'
-        run: npm set "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Install
         run: pnpm install --frozen-lockfile
 

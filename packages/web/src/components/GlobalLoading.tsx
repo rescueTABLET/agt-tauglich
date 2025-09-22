@@ -16,7 +16,7 @@ export default function GlobalLoading() {
       <Box
         sx={{
           position: "relative",
-          bgcolor: "secondary.main",
+          bgcolor: "primary.main",
           borderRadius: "50%",
           boxShadow: 1,
           width: "8rem",
@@ -31,7 +31,7 @@ export default function GlobalLoading() {
             size="100%"
             thickness={2}
             color="inherit"
-            sx={{ color: "secondary.light", position: "absolute", inset: 0 }}
+            sx={{ color: "primary.light", position: "absolute", inset: 0 }}
           />
         </Delay>
         <ThumbUp

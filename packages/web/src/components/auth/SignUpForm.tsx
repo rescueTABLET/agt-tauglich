@@ -85,7 +85,7 @@ export default function SignUpForm({ onToggleMode }: SignUpFormProps) {
         <Button
           type="submit"
           variant="contained"
-          color="secondary"
+          color="primary"
           disabled={loading}
           fullWidth
           size="large"
@@ -94,7 +94,7 @@ export default function SignUpForm({ onToggleMode }: SignUpFormProps) {
         </Button>
         <Button
           variant="text"
-          color="secondary"
+          color="primary"
           onClick={onToggleMode}
           disabled={loading}
         >

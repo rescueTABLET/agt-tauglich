@@ -178,7 +178,7 @@ export default function ReminderConfig({
       </Card>
 
       {reminders.length === 0 && (
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="body2" color="text.primary">
           Keine Erinnerungen konfiguriert. Füge eine Erinnerung hinzu, um vor
           Ablauf benachrichtigt zu werden.
         </Typography>

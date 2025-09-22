@@ -31,7 +31,7 @@ export default defineConfig({
         lang: "de",
         start_url: ".",
         display: "standalone",
-        theme_color: "#a22717",
+        theme_color: "#607d8b",
         background_color: "#f5f5f5",
         icons: [
           ...iconSizes.flatMap((size) => [
