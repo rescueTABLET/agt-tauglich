@@ -6,12 +6,12 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.893.0",
+    "@aws-sdk/client-ses": "^3.990.0",
     "date-fns": "^4.1.0",
-    "firebase-admin": "^13.5.0",
-    "firebase-functions": "^6.4.0"
+    "firebase-admin": "^13.6.1",
+    "firebase-functions": "^7.0.5"
   },
   "devDependencies": {
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.18"
   }
 }
