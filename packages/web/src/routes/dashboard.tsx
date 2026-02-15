@@ -33,7 +33,7 @@ export const Route = createFileRoute("/dashboard")({
 
 function Dashboard() {
   const { user } = useAuthenticated();
-  const { userData, loading, error } = useUserData();
+  const { userData, loading, error } = useUserData(user.uid);
   const addItem = useAddItem(user.uid);
   const updateItem = useUpdateItem(user.uid);
   const deleteItem = useDeleteItem(user.uid);
@@ -224,7 +224,7 @@ function Status({ user }: { user: UserData }) {
     .substring(0, 10);
   const anyExpired = items.some((item) => item.validUntil < now);
   const anyWarning = items.some(
-    (item) => item.validUntil < warningThreshold && item.validUntil >= now
+    (item) => item.validUntil < warningThreshold && item.validUntil >= now,
   );
 
   useEffect(() => {

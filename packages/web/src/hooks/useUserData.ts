@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useState } from "react";
-import { useAuthenticated } from "../contexts/auth";
 import { type ItemData, type User } from "../model";
 import {
   addItem,
@@ -8,19 +7,15 @@ import {
   updateItem,
 } from "../services/userData";
 
-export function useUserData() {
-  const { user } = useAuthenticated();
+export function useUserData(userId: string) {
   const [userData, setUserData] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    setLoading(true);
-    setError(null);
-
     return subscribeToUserData(
-      user.uid,
-      (data: User | null) => {
+      userId,
+      (data) => {
         setUserData(data);
         setLoading(false);
         setError(null);
@@ -28,9 +23,9 @@ export function useUserData() {
       (err) => {
         setLoading(false);
         setError(err.message);
-      }
+      },
     );
-  }, [user.uid]);
+  }, [userId]);
 
   return { userData, loading, error };
 }
@@ -40,16 +35,16 @@ export function useAddItem(userId: string): (data: ItemData) => Promise<void> {
 }
 
 export function useUpdateItem(
-  userId: string
+  userId: string,
 ): (itemId: string, data: ItemData) => Promise<void> {
   return useCallback(
     async (itemId, data) => updateItem(userId, itemId, data),
-    [userId]
+    [userId],
   );
 }
 
 export function useDeleteItem(
-  userId: string
+  userId: string,
 ): (itemId: string) => Promise<void> {
   return useCallback(async (itemId) => deleteItem(userId, itemId), [userId]);
 }
